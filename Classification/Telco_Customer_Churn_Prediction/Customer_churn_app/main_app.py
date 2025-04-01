@@ -29,6 +29,9 @@ if 'file_format' not in st.session_state:
 # Main page formatting
 st.title('Telco Customer Churn')
 
+# Container for buttons to exist in
+
+
 # Select box for dataset to download
 dataset_option = st.selectbox('Download Dataset', ('Raw data', 'Training data'), 
                          index=0,
