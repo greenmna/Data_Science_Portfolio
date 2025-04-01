@@ -8,10 +8,16 @@ import streamlit as st
 import os
 from io import BytesIO
 import pandas as pd
-import numpy as np
+
+# Main page formatting
+st.set_page_config(
+    page_title="Telco Customer App",
+    page_icon='📞'
+)
+st.title('Telco Customer Churn 🗣️☎️')
+st.sidebar.success('Select a service')
 
 # Functions
-
 @st.cache_data
 def load_datasets():
     raw_data = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data', 'WA_Fn-UseC_-Telco-Customer-Churn.csv'))
@@ -25,12 +31,6 @@ if 'data_type' not in st.session_state:
     st.session_state.data_type = None
 if 'file_format' not in st.session_state:
     st.session_state.file_format = None
-
-# Main page formatting
-st.title('Telco Customer Churn')
-
-# Container for buttons to exist in
-
 
 # Select box for dataset to download
 dataset_option = st.selectbox('Download Dataset', ('Raw data', 'Training data'), 
