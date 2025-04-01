@@ -52,7 +52,7 @@ if dataset_option:
     # Dataset format select box
     dataset_format = st.selectbox(
         'Select file format',
-        options = ('CSV', 'Excel', 'TSV', 'JSON'),
+        options=('CSV', 'Excel', 'TSV', 'JSON'),
         index=0,
         key='format_select'
     )
