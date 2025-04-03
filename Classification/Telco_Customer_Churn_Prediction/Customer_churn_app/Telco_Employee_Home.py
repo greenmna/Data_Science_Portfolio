@@ -32,17 +32,22 @@ def load_datasets():
     
     return {'Raw data': raw_data, 'Training data':training_data}
 
-
 # Initialize session_state for selectboxes
 if 'data_type' not in st.session_state:
     st.session_state.data_type = None
 if 'file_format' not in st.session_state:
     st.session_state.file_format = None
 
+# Help option for selectbox used to pick a dataset for download
+dataset_options_help = """- Raw data: Dataset as obtained from https://www.kaggle.com/datasets/blastchar/telco-customer-churn/data
+- Training data: Engineered dataset used to train machine learning model
+    - *Encoding and scaling have not been applied*
+"""
 # Select box for dataset to download
 dataset_option = st.selectbox('Download dataset', ('Raw data', 'Training data'), 
                          index=0,
                          placeholder='Select data...',
+                         help=dataset_options_help,
                          key='dataset_select')
 
 if dataset_option:
@@ -53,7 +58,7 @@ if dataset_option:
     dataset_format = st.selectbox(
         'Select file format',
         options=('CSV', 'Excel', 'TSV', 'JSON'),
-        index=0,
+        index=0, 
         key='format_select'
     )
 

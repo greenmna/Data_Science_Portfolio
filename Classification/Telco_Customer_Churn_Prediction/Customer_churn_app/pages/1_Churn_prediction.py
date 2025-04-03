@@ -54,7 +54,7 @@ st.markdown('# Customer Churn Predictor')
 st.sidebar.header('Churn Predictor')
 st.write(
     """Input a customer's information and hit the predict button
-    to identify if certain customers are at risk of leaving the company"""
+    to identify if certain customers are at risk of leaving the company."""
 )
 
 # Form for churn prediction
@@ -126,22 +126,26 @@ if submitted:
     input_vals = [[phone_service, multiple_lines, internet_service_type,
                      contract, paperless_billing, payment_method, tenure,
                      monthly_charges, total_charges, internet_services]]
-    model_inputs = transformer.transform(input_vals)
-    model_inputs[:, 17:] = scaler.transform(model_inputs[:, 17:])
+    # Check for missing values before completing prediction
+    if None in input_vals[0]:
+        st.write('You are missing 1 or more required inputs in this form, please check that all boxes have a value')
+    else:
+        model_inputs = transformer.transform(input_vals)
+        model_inputs[:, 17:] = scaler.transform(model_inputs[:, 17:])
 
-    result = model.predict(model_inputs)
-    result_container = st.container()
+        result = model.predict(model_inputs)
+        result_container = st.container()
 
-    with result_container:
-        if result == 0:
-            st.markdown("""
-            <div style='text-align: center; font-size: 32px;'>
-                <b>Flight risk 🚨</b>
-            </div>
-            """, unsafe_allow_html=True)
-        else:
-            st.markdown("""
-            <div style='text-align: center; font-size: 32px;'>
-                <b>Safe ✅</b>
-            </div>
-            """, unsafe_allow_html=True)
+        with result_container:
+            if result == 0:
+                st.markdown("""
+                <div style='text-align: center; font-size: 32px;'>
+                    <b>Flight risk 🚨</b>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown("""
+                <div style='text-align: center; font-size: 32px;'>
+                    <b>Safe ✅</b>
+                </div>
+                """, unsafe_allow_html=True)
